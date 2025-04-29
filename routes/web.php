@@ -15,7 +15,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
         'isAuthenticated' => Auth::check(),
     ]);
-});
+})->name('Welcome');
 
 
 
@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/ofertalist', [OfferController::class, 'index'])->name('ofertalist.index');
-    Route::post('/ofertalist', [OfferController::class, 'create'])->name('ofertalist.create');
+    Route::post('/ofertalist', [OfferController::class, 'save'])->name('ofertalist.save');
 });
 
 require __DIR__.'/auth.php';

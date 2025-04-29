@@ -15,10 +15,11 @@ const page = usePage();
           <h1 class="text-white text-2xl font-bold">Little Jobs</h1>
           <ul class="flex space-x-6">
             <li><a href="#" class="text-white hover:text-gray-200">Inicio</a></li>
+            <li><Link :href="route('ofertalist.index')" class="text-white hover:text-gray-200">Ofertas</Link></li>
             <li><a href="#" class="text-white hover:text-gray-200">¿Cómo Funciona?</a></li>
             <li><a href="#" class="text-white hover:text-gray-200">Contacto</a></li>
             <li><a href="#" class="text-white hover:text-gray-200">{{ page.props.auth.user.name }}</a></li>
-            <li><a href="logout" class="text-white hover:text-gray-200">Cerrar sesión</a></li>
+            <Link :href="route('logout')" method="post" as="button" class="text-white hover:text-gray-200">Cerrar sesión</Link>
           </ul>
         </div>
       </nav>

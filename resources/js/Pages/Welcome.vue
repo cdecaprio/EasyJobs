@@ -17,6 +17,10 @@ defineProps({
         type: String,
         required: true,
     },
+    isAuthenticated: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 function handleImageError() {
@@ -40,9 +44,9 @@ function handleImageError() {
       <section class="flex-1 text-center py-20 px-4">
         <h2 class="text-4xl font-bold text-orange-700 mb-4">¡Encuentra pequeños trabajos cerca de ti!</h2>
         <p class="text-gray-600 mb-8">Gana dinero ayudando en tareas sencillas como pasear perros, hacer recados y más.</p>
-        <button :href="route('login')" class="bg-orange-700 hover:bg-orange-800 text-white font-bold py-3 px-6 rounded-full">
+        <Link :href="route('login')" class="bg-orange-700 hover:bg-orange-800 text-white font-bold py-3 px-6 rounded-full">
           Empezar ahora
-        </button>
+        </Link>
       </section>
   
       <!-- Features Section -->

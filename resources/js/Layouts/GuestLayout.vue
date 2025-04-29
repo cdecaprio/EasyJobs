@@ -4,6 +4,7 @@ import { ref } from 'vue';
 
 
 
+
 </script>
 
 <template>
@@ -16,7 +17,7 @@ import { ref } from 'vue';
             <li><a href="#" class="text-white hover:text-gray-200">Inicio</a></li>
             <li><a href="#" class="text-white hover:text-gray-200">¿Cómo Funciona?</a></li>
             <li><a href="#" class="text-white hover:text-gray-200">Contacto</a></li>
-            <li><a href="login" class="text-white hover:text-gray-200">Iniciar sesión</a></li>
+            <Link :href="route('login')" class="text-white hover:text-gray-200">Iniciar sesión</Link>
           </ul>
         </div>
       </nav>
