@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\MusicController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
@@ -26,6 +27,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/ofertalist', [OfferController::class, 'index'])->name('ofertalist.index');
     Route::post('/ofertalist', [OfferController::class, 'save'])->name('ofertalist.save');
+    Route::get('/musicform', [MusicController::class, 'index'])->name('musicform.index');
+    Route::post('/musicform', [MusicController::class, 'save'])->name('musicform.save');
+    Route::get('/musiclist', [MusicController::class, 'list'])->name('musiclist.list');
 });
 
 require __DIR__.'/auth.php';
