@@ -16,10 +16,10 @@ const page = usePage();
           <ul class="flex space-x-6">
             <li><a href="#" class="text-white hover:text-gray-200">Inicio</a></li>
             <li><Link :href="route('ofertalist.index')" class="text-white hover:text-gray-200">Ofertas</Link></li>
-            <li><Link :href="route('musicform.index')" class="text-white hover:text-gray-200">Música</Link></li>
-            <li><Link :href="route('musiclist.list')" class="text-white hover:text-gray-200">Música2</Link></li>
-            <li><a href="#" class="text-white hover:text-gray-200">¿Cómo Funciona?</a></li>
-            <li><a href="#" class="text-white hover:text-gray-200">Contacto</a></li>
+           
+            <li><Link :href="route('musiclist.list')" class="text-white hover:text-gray-200">Música</Link></li>
+            <li><Link :href="route('clase.index')" class="text-white hover:text-gray-200">Clases</Link></li>
+            
             <li><a href="#" class="text-white hover:text-gray-200">{{ page.props.auth.user.name }}</a></li>
             <Link :href="route('logout')" method="post" as="button" class="text-white hover:text-gray-200">Cerrar sesión</Link>
           </ul>

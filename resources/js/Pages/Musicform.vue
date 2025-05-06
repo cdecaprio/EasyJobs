@@ -34,18 +34,18 @@ function save(){
         <form @submit.prevent="save" enctype="multipart/form-data">
             <div class="container mx-auto mt-4">
             <label class="block text-sm font-medium text-gray-700" for="title">Title</label>
-            <input type="text" id="title" v-model="form.title" />
+            <input  autocomplete="title" type="text" id="title" v-model="form.title" />
             
             
             <label class="block text-sm font-medium text-gray-700" for="artist">Artist</label>
-            <input type="text" id="artist" v-model="form.artist" />
+            <input  autocomplete="artist" type="text" id="artist" v-model="form.artist" />
             
            
             <label class="block text-sm font-medium text-gray-700" for="song">Song</label>
-            <input type="file" id="song" @change="form.song = $event.target.files[0]" />
+            <input  autocomplete="song" type="file" id="song" @change="form.song = $event.target.files[0]" />
           
             <label class="block text-sm font-medium text-gray-700" for="image">Image</label>
-            <input type="file" id="image" @change="form.image = $event.target.files[0]" />
+            <input  autocomplete="image" type="file" id="image" @change="form.image = $event.target.files[0]" />
             </div>
             <button type="submit">Save</button>
         </form>
