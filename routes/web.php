@@ -27,7 +27,7 @@ Route::post('/clase', [UsuariController::class, 'save'])->name('clase.save');
 Route::get('/clase/list', [UsuariController::class, 'list'])->name('clase.list');
 Route::get('/claseedit/{id}', [UsuariController::class, 'edit'])->name('claseedit.edit');
 Route::put('/claseupdate/{id}', [UsuariController::class, 'update'])->name('claseupdate.update');
-Route::post('/clase/{id}', [UsuariController::class, 'delete'])->name('clase.delete');
+Route::delete('/clasedelete/{id}', [UsuariController::class, 'delete'])->name('clasedelete.delete');
 Route::get('/claseview', [UsuariController::class, 'view'])->name('clase.view');
 
 

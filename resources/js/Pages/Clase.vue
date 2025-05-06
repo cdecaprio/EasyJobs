@@ -34,16 +34,21 @@ const save = () => {
 
 
 const deleteUser = (id) => {
-    axios.delete(route('clase.delete', { id: id })).then(response => {
+    axios.delete(route('clasedelete.delete', { id: id })).then(response => {
         view();
     })
 }
 
 const view = () => {
-    axios.get(route('clase.view')).then(response => {
-        usuarios.value = response.data;
-       
+    fetch(route('clase.view'))
+    .then(response => response.json())
+    .then(data => {
+        usuarios.value = data;
     })
+    // axios.get(route('clase.view')).then(response => {
+    //     usuarios.value = response.data;
+       
+    // })
 }
 
 // fetch('ruta del controlador)
