@@ -68,6 +68,19 @@ class UsuariController extends Controller
         $usuari->phone = $request->phone;
         $usuari->course_id = $request->course_id;
         $usuari->save();
-        return redirect()->route('clase.index', ['usuaris' => $usuari]);
+        return response()->json($usuari);
+    }
+
+    public function delete($id)
+    {
+        $usuari = Usuari::find($id);
+        $usuari->delete();
+        return response()->json($usuari);
+    }
+
+    public function view()
+    {
+        $usuaris = Usuari::all();
+        return response()->json($usuaris);
     }
 }

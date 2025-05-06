@@ -25,8 +25,12 @@ Route::get('/', function () {
 Route::get('/clase', [UsuariController::class, 'index'])->name('clase.index');
 Route::post('/clase', [UsuariController::class, 'save'])->name('clase.save');
 Route::get('/clase/list', [UsuariController::class, 'list'])->name('clase.list');
-Route::get('/editclase/{id}', [UsuariController::class, 'edit'])->name('editclase.edit');
-Route::put('/editclase/{id}', [UsuariController::class, 'update'])->name('editclase.update');
+Route::get('/claseedit/{id}', [UsuariController::class, 'edit'])->name('claseedit.edit');
+Route::put('/claseupdate/{id}', [UsuariController::class, 'update'])->name('claseupdate.update');
+Route::post('/clase/{id}', [UsuariController::class, 'delete'])->name('clase.delete');
+Route::get('/claseview', [UsuariController::class, 'view'])->name('clase.view');
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

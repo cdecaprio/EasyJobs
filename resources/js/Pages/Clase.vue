@@ -2,15 +2,19 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { useForm } from '@inertiajs/vue3';
-
+import axios from 'axios';
+import { ref, watch } from 'vue';
+import Modal from '@/Components/Modal.vue';
 const props = defineProps({
     usuaris: Array,
     courses: Array,
-    
+    usuari: Object,
 });
 
-console.log(props);
-console.log("props.usuaris", props.usuaris);
+// Estado reactivo local para los usuarios
+let usuarios = ref(props.usuaris);
+
+
 
 const getCourseName = (courseId) => {
     return props.courses.find(c => c.id === courseId)?.name || 'Sin curso';
@@ -21,13 +25,94 @@ const form = useForm({
     name: '',
     course_id: '',
     phone: '',
-
-
 });
 
 const save = () => {
     form.post(route('clase.save'));
+    view();
 }
+
+
+const deleteUser = (id) => {
+    axios.delete(route('clase.delete', { id: id })).then(response => {
+        view();
+    })
+}
+
+const view = () => {
+    axios.get(route('clase.view')).then(response => {
+        usuarios.value = response.data;
+       
+    })
+}
+
+// fetch('ruta del controlador)
+//   .then(response => {
+//     if (!response.ok) {
+//       throw new Error('Error en la solicitud: ' + response.status);
+//     }
+//     return response.json(); // Convertir la respuesta a JSON
+//   })
+//   .then(data => {
+//     console.log('Usuarios:', data); // Mostrar los datos en consola
+//   })
+//   .catch(error => {
+//     console.error('Ocurrió un error:', error);
+//   });
+
+// ejemplo
+
+// const deleteUser = (id) => {
+//     fetch(route('clase.delete', { id: id }), {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             // Agrega aquí cualquier header necesario, como CSRF token si aplica
+//         }
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         usuarios.value = data;
+//         console.log('response.data delete', data);
+
+//         // Luego hacemos la petición GET
+//         fetch(route('clase.view'))
+//             .then(response => response.json())
+//             .then(data => {
+//                 usuarios.value = data;
+//                 console.log('response.data view', data);
+//             })
+//             .catch(error => console.error('Error en fetch clase.view:', error));
+//     })
+//     .catch(error => console.error('Error en fetch clase.delete:', error));
+// }
+
+const modalVisible = ref(false)
+const selectedUser = ref(null)
+
+const form2 = useForm({
+    name: '',
+    phone: '',
+    course_id: '',
+});
+
+const openEditModal = (user) => {
+    selectedUser.value = user;
+    form2.name = user.name;
+    form2.phone = user.phone;
+    form2.course_id = user.course_id;
+    modalVisible.value = true;
+}
+
+const updateUser = (id) => {
+    axios.put(route('claseupdate.update', { id: id }), form2)
+        .then(response => {
+            modalVisible.value = false;
+            view();
+        })
+       ;
+}
+
 
 </script>
 
@@ -73,7 +158,7 @@ const save = () => {
                         </select>
                     </div>
 
-                    <button 
+                    <button @click="view"
                         type="submit" 
                         class="w-full bg-[#2b72e6] text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
                         Guardar
@@ -85,7 +170,7 @@ const save = () => {
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <h1 class="text-2xl font-bold mb-4">Alumnes</h1>
                 <ul class="space-y-4">
-                    <li v-for="usuari in props.usuaris" 
+                    <li v-for="usuari in usuarios" 
                         :key="usuari.id"
                         class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 rounded-lg space-y-2 sm:space-y-0">
                         <div class="space-y-1">
@@ -93,14 +178,63 @@ const save = () => {
                             <p class="text-gray-600">{{ usuari.phone }}</p>
                             <p class="text-gray-600">{{ getCourseName(usuari.course_id) }}</p>
                         </div>
-                        <a 
-                            :href="route('editclase.edit', usuari.id)"
+                        <button 
+                            id="edit"
+                            @click="openEditModal(usuari)"
                             class="inline-block bg-[#2b72e6] text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors text-center">
                             Editar
-                        </a>
+                        </button>
+                        <!-- :href="route('editclase.edit', usuari.id)" -->
+                        <button @click="deleteUser(usuari.id)" class="inline-block bg-[#2b72e6] text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors text-center">
+                            Eliminar
+                        </button>
                     </li>
                 </ul>
             </div>
+             <Modal :show="modalVisible" @close="modalVisible = false">
+                <template #title>Editar Usuario</template>
+                <div class="container mx-auto mt-4">
+                    <form @submit.prevent="updateUser(selectedUser.id)" class="m-2 space-y-4">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700" for="edit-name">Nombre</label>
+                            <input 
+                                class="w-full border-2 border-gray-300 rounded-md p-2"
+                                v-model="form2.name"
+                                type="text"
+                                id="edit-name"
+                                required>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700" for="edit-phone">Teléfono</label>
+                            <input 
+                                class="w-full border-2 border-gray-300 rounded-md p-2"
+                                v-model="form2.phone"
+                                type="tel"
+                                id="edit-phone"
+                                required>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">Curso</label>
+                            <select 
+                                v-model="form2.course_id"
+                                class="w-full border-2 border-gray-300 rounded-md p-2">
+                                <option value="">Seleccione un curso</option>
+                                <option v-for="course in props.courses" :key="course.id" :value="course.id">
+                                    {{ course.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="flex justify-end p-4">
+                    <button @click="modalVisible = false" class="m-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                        Cerrar
+                    </button>
+                    <button @click="updateUser(selectedUser.id)" class="m-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                        Actualizar
+                    </button>
+                </div>
+            </Modal>
         </div>
     </div>
 </template>
