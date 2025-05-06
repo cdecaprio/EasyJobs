@@ -32,13 +32,14 @@ const save = () => {
     view();
 }
 
-
+//axios delete
 const deleteUser = (id) => {
     axios.delete(route('clasedelete.delete', { id: id })).then(response => {
         view();
     })
 }
 
+//fetch view
 const view = () => {
     fetch(route('clase.view'))
     .then(response => response.json())
