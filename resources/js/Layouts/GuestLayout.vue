@@ -17,7 +17,7 @@ const toggleMenu = () => {
           <h1 class="text-white text-2xl font-bold">Little Jobs</h1>
           
           <!-- Botón hamburguesa para móvil -->
-          <button @click="toggleMenu" class="md:hidden text-white">
+          <button aria-label="toggleMenu" @click="toggleMenu" class="md:hidden text-white">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path v-if="!isMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                   <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>

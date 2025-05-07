@@ -29,7 +29,7 @@ Route::get('/claseedit/{id}', [UsuariController::class, 'edit'])->name('claseedi
 Route::put('/claseupdate/{id}', [UsuariController::class, 'update'])->name('claseupdate.update');
 Route::delete('/clasedelete/{id}', [UsuariController::class, 'delete'])->name('clasedelete.delete');
 Route::get('/claseview', [UsuariController::class, 'view'])->name('clase.view');
-
+Route::get('/clasesearch', [UsuariController::class, 'search'])->name('clasesearch.search');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

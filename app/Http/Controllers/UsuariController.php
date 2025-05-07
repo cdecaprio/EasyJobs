@@ -22,7 +22,7 @@ class UsuariController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
+            'phone' => 'required|numeric',
             'course_id' => 'required|exists:courses,id',
         ]);
 
@@ -60,7 +60,7 @@ class UsuariController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
+            'phone' => 'required|numeric',
             'course_id' => 'required|exists:courses,id',
         ]);
         $usuari = Usuari::find($id);
@@ -83,4 +83,11 @@ class UsuariController extends Controller
         $usuaris = Usuari::all();
         return response()->json($usuaris);
     }
+
+    // public function search(Request $request)
+    // {
+    //     $search = $request->input('search');
+    //     $usuaris = Usuari::where('name', 'like', "%$search%")->get();
+    //     return response()->json($usuaris);
+    // }
 }
