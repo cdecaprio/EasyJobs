@@ -130,10 +130,11 @@ const userToSearch = computed(() => {
     );
 });
 
-const searchUser = () => {
-    // No necesitamos hacer una llamada al servidor ya que el filtrado se hace en el cliente
-    // El computed property userToSearch se actualizará automáticamente
-}
+// const searchUser = () => {
+//     // No necesitamos hacer una llamada al servidor ya que el filtrado se hace en el cliente
+//     // El computed property userToSearch se actualizará automáticamente
+// }
+
 
 </script>
 
