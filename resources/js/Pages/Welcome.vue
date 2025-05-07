@@ -2,6 +2,9 @@
 import { Head, Link } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
+import { ref } from 'vue';
+
+
 defineProps({
     canLogin: {
         type: Boolean,
@@ -23,12 +26,29 @@ defineProps({
     },
 });
 
-function handleImageError() {
-    document.getElementById('screenshot-container')?.classList.add('!hidden');
-    document.getElementById('docs-card')?.classList.add('!row-span-1');
-    document.getElementById('docs-card-content')?.classList.add('!flex-row');
-    document.getElementById('background')?.classList.add('!hidden');
-}
+// function handleImageError() {
+//     document.getElementById('screenshot-container')?.classList.add('!hidden');
+//     document.getElementById('docs-card')?.classList.add('!row-span-1');
+//     document.getElementById('docs-card-content')?.classList.add('!flex-row');
+//     document.getElementById('background')?.classList.add('!hidden');
+// }
+
+const index = ref(0);
+
+const textos = [
+  'Benvingut al nostre projecte!',
+  'Explora les funcionalitats disponibles.',
+  'Recorda desar els teus progressos.',
+  'Gracies per visitar-nos!'
+];
+
+const next = () => {
+  index.value = (index.value + 1) % textos.length;
+};
+
+const prev = () => {
+  index.value = (index.value - 1 + textos.length) % textos.length;
+};
 </script>
 
 <template>
@@ -49,6 +69,37 @@ function handleImageError() {
         </Link>
       </section>
   
+
+
+
+    <section class="relative min-h-screen py-2 px-2 md:px-4 sm:py-10 bg-white">
+<div class="w-full max-w-xl mx-auto p-4">
+  <div class="relative">
+    <p class="text-center">{{ textos[index] }}</p>
+
+    <div class="absolute top-1/2 left-0 transform -translate-y-1/2">
+      <button @click="prev" class="bg-white px-2 py-1 rounded shadow">←</button>
+    </div>
+
+    <div class="absolute top-1/2 right-0 transform -translate-y-1/2">
+      <button @click="next" class="bg-white px-2 py-1 rounded shadow">→</button>
+    </div>
+  </div>
+
+  <div class="flex justify-center gap-2 mt-2">
+    <span
+      v-for="(texto, i) in textos"
+      :key="i"
+      class="w-2 h-2 rounded-full"
+      :class="i === index ? 'bg-black' : 'bg-gray-400'"
+    ></span>
+  </div>
+</div>
+  </section>
+
+
+
+
       <!-- Features Section -->
       <section class="py-16 bg-white">
         <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8 text-center">

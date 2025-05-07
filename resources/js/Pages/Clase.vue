@@ -123,6 +123,7 @@ const updateUser = (id) => {
 </script>
 
 <template>
+    <GuestLayout>
     <div class="container mx-auto px-4 py-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Formulario -->
@@ -243,4 +244,5 @@ const updateUser = (id) => {
             </Modal>
         </div>
     </div>
+</GuestLayout>
 </template>
