@@ -3,6 +3,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { ref } from 'vue';
+import MainLayout from '@/Layouts/MainLayout.vue';
 
 
 defineProps({
@@ -52,7 +53,7 @@ const prev = () => {
 </script>
 
 <template>
-      <component :is="isAuthenticated ? AuthenticatedLayout : GuestLayout">
+    <MainLayout>  
 
 
     
@@ -125,7 +126,7 @@ const prev = () => {
         </div>
       </footer>
     </div>
-    </component>
+  </MainLayout>
   </template>
   
  
